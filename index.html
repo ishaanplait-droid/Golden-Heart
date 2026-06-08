@@ -8,14 +8,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* KEEP YOUR FULL CSS HERE (UNCHANGED) */
+
+/* ADMIN BUTTON */
+#adminBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: #0d0e11;
+  color: #f0b429;
+  border: 1px solid rgba(240,180,41,0.4);
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: 0.2s;
+}
+
+#adminBtn:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ================= YOUR FULL HTML BODY CONTENT ================= -->
-<!-- KEEP YOUR ROLE CARDS + FORM + SUCCESS SCREEN EXACTLY AS YOU HAVE -->
+<!-- ADMIN BUTTON -->
+<button id="adminBtn" onclick="openAdmin()">Admin</button>
+
+<!-- ================= YOUR HTML CONTENT STAYS HERE ================= -->
 
 <script>
 const roleRequirements = {
@@ -84,9 +106,10 @@ async function submitForm(e) {
 
   const applicationData = {
     role: selectedRole,
-    minecraft_user: selectedRole === 'Minecraft Chat Moderator'
-      ? document.getElementById('mcUser').value
-      : null,
+    minecraft_user:
+      selectedRole === 'Minecraft Chat Moderator'
+        ? document.getElementById('mcUser').value
+        : null,
     discord_user: document.getElementById('discordUser').value,
     age: Number(document.getElementById('age').value) || null,
     timezone: document.getElementById('timezone').value,
@@ -131,16 +154,24 @@ function resetForm() {
 
   selectedRole = null;
 }
+
+/* ADMIN LOGIN */
+function openAdmin() {
+  const pass = prompt("Enter admin password:");
+
+  if (pass === "admingoldenheart@67") {
+    window.location.href = "admin.html";
+  } else {
+    alert("Wrong password");
+  }
+}
 </script>
 
-<!-- ================= SUPABASE (IMPORTANT ORDER FIXED) ================= -->
-
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const supabaseUrl = 'https://aonbofzvaqymcjzpnxnf.supabase.co';
-
-/* 🔴 ONLY CHANGE THIS LINE */
 const supabaseKey = 'sb_publishable_vL_ovctvXE0kbpvTrWNaCw_Wps0xj6y';
 
 const supabase = window.supabase.createClient(
